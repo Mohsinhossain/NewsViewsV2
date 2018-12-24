@@ -3,32 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/splash_bg"
-    tools:context=".MainActivity">
+    android:theme="@style/AppTheme"
+    tools:context=".HomeActivity">
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="8dp"
-        android:layout_marginTop="50dp"
-        android:fontFamily="sans-serif"
-        android:text ="Splash screen develop mode"
-        android:textSize="20sp"
-        android:textStyle="normal"
-        android:textColor="@android:color/black"
-        />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="8dp"
-        android:fontFamily="sans-serif"
         android:layout_centerInParent="true"
-        android:text ="NewsViews"
-        android:textSize="36sp"
+        android:layout_margin="70dp"
+        android:fontFamily="sans-serif"
+        android:text ="This is Home"
+        android:textSize="20sp"
         android:textStyle="normal"
         android:textColor="@android:color/black"
         />
