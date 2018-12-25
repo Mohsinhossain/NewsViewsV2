@@ -1,11 +1,9 @@
 package com.mohsinmonad.newsviews.main;
 
 
-import android.animation.ArgbEvaluator;
 import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
 import com.mohsinmonad.newsviews.R;
 import com.mohsinmonad.newsviews.fragmentpage.Pager1;
 import com.mohsinmonad.newsviews.fragmentpage.Pager2;

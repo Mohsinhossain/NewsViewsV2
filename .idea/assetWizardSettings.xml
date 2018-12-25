@@ -15,8 +15,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="opacityPercent" value="96" />
-                            <entry key="outputName" value="ic_mail" />
-                            <entry key="sourceFile" value="C:\Users\Mohsin Monad\Downloads\mail.svg" />
+                            <entry key="outputName" value="ic_logout" />
+                            <entry key="sourceFile" value="C:\Users\Mohsin Monad\Downloads\logout.svg" />
                           </map>
                         </option>
                       </PersistentState>

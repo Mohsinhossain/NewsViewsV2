@@ -1,24 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mohsinmonad.newsviews.drawerevent.NavMenu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/AppTheme"
-    tools:context=".home.HomeActivity">
+    android:background="@color/light_blue"
+    tools:context=".about.AboutActivity">
 
-
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="8dp"
-        android:layout_centerInParent="true"
-        android:layout_margin="70dp"
-        android:fontFamily="sans-serif"
-        android:text ="This is Home"
-        android:textSize="20sp"
-        android:textStyle="normal"
-        android:textColor="@android:color/black"
-        />
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
-</RelativeLayout>
+        <!--suppress AndroidMissingOnClickHandler -->
+        <LinearLayout
+            android:id="@+id/container1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:onClick="toggleMenu"
+            android:orientation="vertical"
+            tools:ignore="OnClick">
+
+            <include
+                layout="@layout/menuitem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- This holds our content-->
+
+    <LinearLayout
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ECEFF1"
+            android:clickable="true"
+            android:focusable="true"
+            app:theme="@style/AppTheme">
+
+            <ImageView
+                android:id="@+id/menu_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:fitsSystemWindows="true"
+                android:onClick="toggleMenu"
+                android:src="@drawable/menu_48x48"
+                tools:ignore="ContentDescription,OnClick" />
+
+            <TextView
+                android:id="@+id/header_tiltle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="NewsViews"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/item1_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+</com.mohsinmonad.newsviews.drawerevent.NavMenu>

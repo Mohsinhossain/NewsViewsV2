@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/headeruser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/img_profile"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/ic_avatar"
+            android:paddingTop="2dp"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/uname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:fontFamily="sans-serif"
+            android:paddingTop="2dp"
+            android:text="Monad Mannan"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/uemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:fontFamily="sans-serif"
+            android:text="mmh@gmail.com"
+            android:textSize="12sp"
+            android:textColor="#000000"
+            tools:ignore="RtlHardcoded" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="130dp"
+        android:orientation="vertical"
+        android:scrollbars="vertical">
+
+        <TextView
+            android:id="@+id/loginandreg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="14dp"
+            android:fontFamily="sans-serif"
+            android:text="Log In or Create Account"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:visibility="gone"
+            tools:ignore="RtlHardcoded" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.40dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif"
+            android:text="Sections"
+            android:textSize="15dp" />
+
+        <LinearLayout
+            android:id="@+id/linear_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14sp"
+            android:layout_marginLeft="14sp"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_house_outline"
+                android:visibility="visible"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/home_frgmt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif"
+                android:text="Home"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/top_home_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14sp"
+            android:layout_marginLeft="14sp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_questions_about_abecedary"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/homedefault"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif"
+                android:text="About"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/national_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14sp"
+            android:layout_marginLeft="14sp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_logout"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/nationals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif"
+                android:text="Exit"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:textStyle="normal" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
