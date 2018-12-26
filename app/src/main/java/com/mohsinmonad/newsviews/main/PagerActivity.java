@@ -1,7 +1,9 @@
 package com.mohsinmonad.newsviews.main;
 
-
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -11,12 +13,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
 import com.mohsinmonad.newsviews.R;
 import com.mohsinmonad.newsviews.fragmentpage.Pager1;
 import com.mohsinmonad.newsviews.fragmentpage.Pager2;
 import com.mohsinmonad.newsviews.fragmentpage.Pager3;
 import com.mohsinmonad.newsviews.home.HomeActivity;
 import com.mohsinmonad.newsviews.pageradapter.SectionsPagerAdapter;
+import com.mohsinmonad.newsviews.util.MyPreferences;
 
 public class PagerActivity extends AppCompatActivity {
 
@@ -24,14 +28,11 @@ public class PagerActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     ImageButton mNextBtn;
     Button mSkipBtn, mFinishBtn;
-
     ImageView zero, one, two;
     ImageView[] indicators;
-
     int lastLeftValue = 0;
 
     CoordinatorLayout mCoordinator;
-
 
     static final String TAG = "PagerActivity";
 
@@ -42,15 +43,22 @@ public class PagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pager);
 
-        // Create the adapter that will return a fragment for each of the three
+        //Only once  the intro splash activity and second time it will show other activity
+        SharedPreferences pref = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
+        if (pref.getBoolean("activity_executed", false)) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            SharedPreferences.Editor ed = pref.edit();
+            ed.putBoolean("activity_executed", true);
+            ed.apply();
+        }
+
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mNextBtn = findViewById(R.id.intro_btn_next);
-        /*if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
-            mNextBtn.setImageDrawable(
-                    Utils.tintMyDrawable(ContextCompat.getDrawable(this, R.drawable.ic_right_arrow), Color.WHITE)
-            );*/
 
         mSkipBtn = findViewById(R.id.intro_btn_skip);
         mFinishBtn = findViewById(R.id.intro_btn_finish);
@@ -83,23 +91,20 @@ public class PagerActivity extends AppCompatActivity {
 
                 page = position;
 
-                updateIndicators(page);
+                //updateIndicators(page);
 
                 switch (position) {
                     case 0:
                         Fragment fragment1 = new Pager1();
                         loadFragment(fragment1);
-                        //mViewPager.setBackgroundColor(color1);
                         break;
                     case 1:
                         Fragment fragment2 = new Pager2();
                         loadFragment(fragment2);
-                        //mViewPager.setBackgroundColor(color2);
                         break;
                     case 2:
                         Fragment fragment3 = new Pager3();
                         loadFragment(fragment3);
-                        //mViewPager.setBackgroundColor(color3);
                         break;
                 }
 
@@ -114,7 +119,7 @@ public class PagerActivity extends AppCompatActivity {
 
                 page = position;
 
-                updateIndicators(page);
+                //updateIndicators(page);
 
                 switch (position) {
                     case 0:
@@ -144,34 +149,23 @@ public class PagerActivity extends AppCompatActivity {
             }
         });
 
-        mNextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                page += 1;
-                mViewPager.setCurrentItem(page, true);
-            }
+        mNextBtn.setOnClickListener(v -> {
+            page += 1;
+            mViewPager.setCurrentItem(page, true);
         });
 
-        mSkipBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                finish();
-            }
+        mSkipBtn.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            finish();
         });
 
-        mFinishBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                //Utils.saveSharedSetting(PagerActivity.this, HomeActivity.PREF_USER_FIRST_TIME, "false");
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        mFinishBtn.setOnClickListener(v -> {
+            finish();
+            //Utils.saveSharedSetting(PagerActivity.this, HomeActivity.PREF_USER_FIRST_TIME, "false");
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
 
-            }
         });
-
     }
-
 
     void updateIndicators(int position) {
         for (int i = 0; i < indicators.length; i++) {
@@ -182,9 +176,16 @@ public class PagerActivity extends AppCompatActivity {
     }
 
     void loadFragment(Fragment fragment) {
+        updateIndicators(page);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment, fragment.getClass()
-                        .getSimpleName()).addToBackStack(null).commit();
+                .replace(R.id.fragment_container, fragment, fragment.getClass().getSimpleName())
+                .addToBackStack(null).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
     }
 
 }

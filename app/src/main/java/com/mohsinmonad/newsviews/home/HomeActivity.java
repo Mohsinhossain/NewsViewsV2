@@ -1,12 +1,14 @@
 package com.mohsinmonad.newsviews.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import com.mohsinmonad.newsviews.R;
 import com.mohsinmonad.newsviews.drawerevent.NavMenu;
+import com.mohsinmonad.newsviews.main.PagerActivity;
 
 import java.util.Objects;
 
@@ -29,4 +31,13 @@ public class HomeActivity extends AppCompatActivity {
     public void toggleMenu(View v) {
         this.navgLayout.toggleMenu();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
+
+    }
+
+
 }
