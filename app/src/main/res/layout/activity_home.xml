@@ -38,6 +38,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -73,11 +74,8 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/item1_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+        <include layout="@layout/content_main" />
 
     </LinearLayout>
+
 </com.mohsinmonad.newsviews.drawerevent.NavMenu>

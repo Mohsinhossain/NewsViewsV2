@@ -3,4 +3,6 @@
     <string name="introduce_me">Hi,I am Mohammad Mohsin Hossain.
         I am an Android Developer. </string>
     <string name="section_format"> Welcome NewsViews</string>
+    <string name="appbar_scrolling_view_behavior"> Hello NewsViews</string>
+
 </resources>

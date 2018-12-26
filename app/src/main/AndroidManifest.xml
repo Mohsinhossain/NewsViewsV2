@@ -25,14 +25,20 @@
         </activity>
         <activity
             android:name=".home.HomeActivity"
-            android:theme="@style/SplashTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".about.AboutActivity"></activity>
+        <activity android:name=".about.AboutActivity" />
+        <activity android:name=".news.NewsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+
+        </activity>
     </application>
 
 </manifest>
