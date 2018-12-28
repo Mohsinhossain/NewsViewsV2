@@ -30,8 +30,6 @@ public class PagerActivity extends AppCompatActivity {
     Button mSkipBtn, mFinishBtn;
     ImageView zero, one, two;
     ImageView[] indicators;
-    int lastLeftValue = 0;
-
     CoordinatorLayout mCoordinator;
 
     static final String TAG = "PagerActivity";
@@ -130,12 +128,10 @@ public class PagerActivity extends AppCompatActivity {
                     case 1:
                         Fragment fragment2 = new Pager2();
                         loadFragment(fragment2);
-                        //mViewPager.setBackgroundColor(color2);
                         break;
                     case 2:
                         Fragment fragment3 = new Pager3();
                         loadFragment(fragment3);
-                        //mViewPager.setBackgroundColor(color3);
                         break;
                 }
 
