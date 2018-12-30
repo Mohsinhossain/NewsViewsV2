@@ -17,11 +17,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import com.mohsinmonad.newsviews.R;
 import com.mohsinmonad.newsviews.about.AboutActivity;
 import com.mohsinmonad.newsviews.drawerevent.NavMenu;
 import com.mohsinmonad.newsviews.news.NewsActivity;
 import com.mohsinmonad.newsviews.prod.Injection;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView.
     NavMenu navgLayout;
     ArrayList<Source> sources = new ArrayList<>();
     String conCode;
+    LinearLayout linearLayout1, linearLayout2, linearLayout3;
 
     @SuppressLint("NewApi")
     @Override
@@ -126,14 +129,16 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView.
     }
 
     private void initLinearItem() {
-        LinearLayout linearLayout1 = findViewById(R.id.linear_home);
-        LinearLayout linearLayout2 = findViewById(R.id.linear_about);
-        LinearLayout linearLayout3 = findViewById(R.id.linear_exit);
+        linearLayout1 = findViewById(R.id.linear_home);
+        linearLayout2 = findViewById(R.id.linear_about);
+        linearLayout3 = findViewById(R.id.linear_exit);
 
         linearLayout1.setOnClickListener(v -> {
+            toggleMenu(v);
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
         });
         linearLayout2.setOnClickListener(v -> {
+            toggleMenu(v);
             startActivity(new Intent(getApplicationContext(), AboutActivity.class));
         });
         linearLayout3.setOnClickListener(v -> {

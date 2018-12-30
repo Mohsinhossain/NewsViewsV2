@@ -3,6 +3,9 @@ package com.mohsinmonad.newsviews.news;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Article {
 
 
@@ -97,4 +100,25 @@ public class Article {
             "urlToImage": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2017/03/KKbot-Header.jpg",
             "publishedAt": "2017-03-23T20:19:07Z"
     },*/
+
+    public static List<Article> getAllBySource(String sourceId) {
+        List<Article> articles = new ArrayList<>();
+               /* .from(Article.class)
+                .where(Article_Table.sourceId.eq(sourceId))
+                .queryList());*/
+
+        return articles;
+    }
+
+    public static List<Article> getByTitleKeyword(String sourceId, String keyword) {
+        List<Article> articles = new ArrayList<>();
+
+        /*articles.addAll(SQLite.select()
+                .from(Article.class)
+                .where(Article_Table.sourceId.eq(sourceId))
+                .and(Article_Table.title.like("%" + keyword + "%"))
+                .queryList());*/
+
+        return articles;
+    }
 }

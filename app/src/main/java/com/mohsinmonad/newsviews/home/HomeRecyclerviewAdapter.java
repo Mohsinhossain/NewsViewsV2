@@ -1,6 +1,7 @@
 package com.mohsinmonad.newsviews.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.mohsinmonad.newsviews.R;
+import com.mohsinmonad.newsviews.news.NewsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class HomeRecyclerviewAdapter extends RecyclerView.Adapter<HomeRecyclervi
 
     private ItemClickListener listener;
     private List<Source> sourceList;
+    Context context;
 
     public HomeRecyclerviewAdapter(ItemClickListener listener, List<Source> sourceList) {
         this.listener = listener;
@@ -50,6 +53,10 @@ public class HomeRecyclerviewAdapter extends RecyclerView.Adapter<HomeRecyclervi
         holder.view.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onItemClick(sourceList.get(holder.getAdapterPosition()));
+                /*Intent intent = new Intent(context, NewsActivity.class);
+                intent.putExtra("CRITERIA", "SPECIFIC_NEWS");
+                intent.putExtra("SOURCE_ID", sourceList.get(position).getId());
+                context.startActivity(intent);*/
             }
         });
         String name = sourceList.get(position).getName();
