@@ -24,7 +24,7 @@ public class ApiClient {
                     interceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
                     OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
                     sRetrofit = new Retrofit.Builder()
-                            .baseUrl(App.BASE_URL)
+                            .baseUrl(BuildConfig.BASE_API_URL)
                             .addConverterFactory(GsonConverterFactory.create())
                             .client(client)
                             .build();

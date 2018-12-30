@@ -83,7 +83,7 @@
             android:textSize="15dp" />
 
         <LinearLayout
-            android:id="@+id/linear_1"
+            android:id="@+id/linear_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14sp"
@@ -115,7 +115,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/top_home_1"
+            android:id="@+id/linear_about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14sp"
@@ -147,7 +147,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/national_1"
+            android:id="@+id/linear_exit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14sp"

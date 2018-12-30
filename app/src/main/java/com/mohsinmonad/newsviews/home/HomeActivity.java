@@ -15,22 +15,26 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.mohsinmonad.newsviews.R;
+import com.mohsinmonad.newsviews.about.AboutActivity;
 import com.mohsinmonad.newsviews.drawerevent.NavMenu;
 import com.mohsinmonad.newsviews.news.NewsActivity;
+import com.mohsinmonad.newsviews.prod.Injection;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeActivity extends AppCompatActivity implements HomeActivityView {
+public class HomeActivity extends AppCompatActivity implements HomeActivityView.View {
+
+    private HomeActivityView.Presenter presenter;
+    private HomeRecyclerviewAdapter adapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     ImageView mToggleMenu;
     NavMenu navgLayout;
-    private HomeActivityViewPresenter presenter;
-    private HomeRecyclerviewAdapter adapter;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    ArrayList<Source> sources = new ArrayList<>();
     String conCode;
 
     @SuppressLint("NewApi")
@@ -47,7 +51,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
         initRecycler();
         initSwipeToRefresh();
         initPresenter();
-        initMenuImage();
+        initLinearItem();
 
     }
 
@@ -65,35 +69,20 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
     @Override
     protected void onResume() {
         super.onResume();
-        //presenter.getSourcesAll();
+        presenter.loadSources();
     }
 
     private void initPresenter() {
-
-        presenter = new HomeActivityViewPresenter(this);
-        presenter.getSourcesAll();
-
-    }
-
-    private void initToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            toolbar.setTitle(getTitle());
-        }
-    }
-
-    private void initMenuImage() {
-        ImageView imageView = findViewById(R.id.menu_icon);
-        TextView textView = findViewById(R.id.header_tiltle);
+        presenter = new HomeActivityViewPresenter(
+                Injection.provideRepository(getApplicationContext()), this);
     }
 
     @Override
     public void showSources(@NonNull List<Source> sources) {
+
         if (adapter != null) {
             adapter.setSourceList(sources);
         }
-
     }
 
     @Override
@@ -102,7 +91,12 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
         if (swipeRefreshLayout == null) {
             return;
         }
-        swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(refreshing));
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(refreshing);
+            }
+        });
     }
 
     @Override
@@ -120,16 +114,42 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
 
     @Override
     public void showLoadingSourcesError() {
-        setRefreshing(false);
-        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
 
+        setRefreshing(false);
+        Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showNoSourcesData() {
-
         setRefreshing(false);
-        Toast.makeText(getApplicationContext(), "No data", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "no data", Toast.LENGTH_SHORT).show();
+    }
+
+    private void initLinearItem() {
+        LinearLayout linearLayout1 = findViewById(R.id.linear_home);
+        LinearLayout linearLayout2 = findViewById(R.id.linear_about);
+        LinearLayout linearLayout3 = findViewById(R.id.linear_exit);
+
+        linearLayout1.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        });
+        linearLayout2.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+        });
+        linearLayout3.setOnClickListener(v -> {
+            //startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+            finish();
+        });
+
+    }
+
+
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            toolbar.setTitle(getTitle());
+        }
     }
 
     private void initRecycler() {
@@ -150,15 +170,10 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
 
     private void initSwipeToRefresh() {
         swipeRefreshLayout = findViewById(R.id.swipe_to_refresh);
-        swipeRefreshLayout.setOnRefreshListener(() -> presenter.getSourcesAll());
+        swipeRefreshLayout.setOnRefreshListener(() -> presenter.loadSources());
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-    }
-
-    @Override
-    public void setSources(List<Source> sourcesList) {
-        initRecycler();
     }
 }

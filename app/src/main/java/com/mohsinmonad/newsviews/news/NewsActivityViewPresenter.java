@@ -1,57 +1,51 @@
 package com.mohsinmonad.newsviews.news;
 
 
-import android.util.Log;
+import android.support.annotation.NonNull;
 
-import com.mohsinmonad.newsviews.BuildConfig;
-import com.mohsinmonad.newsviews.common.App;
-import com.mohsinmonad.newsviews.common.GetApiService;
-import com.mohsinmonad.newsviews.source.IDataSource;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.mohsinmonad.newsviews.common.App.API_KEY;
+import com.mohsinmonad.newsviews.source.RepositoryDataSource;
+import com.mohsinmonad.newsviews.source.remote.IRemoteDataSource;
+import java.util.List;
 
 
-public class NewsActivityViewPresenter {
+import static com.google.common.base.Preconditions.checkNotNull;
 
-    private NewsActivityViewPresenter newsActivityPresenter;
-    private NewsActivityView newsActivityView;
-    IDataSource.LoadDataCallback<Article> callback;
+public class NewsActivityViewPresenter implements NewsActivityView.Presenter {
 
-    NewsActivityViewPresenter(NewsActivityView newsActivityView) {
-        this.newsActivityView = newsActivityView;
+    private NewsActivityView.View view;
+    private RepositoryDataSource repository;
+
+    public NewsActivityViewPresenter(@NonNull RepositoryDataSource repository,
+                         @NonNull NewsActivityView.View view) {
+        this.repository = checkNotNull(repository, "repository cannot be null");
+        this.view = checkNotNull(view, "View cannot be null!");
     }
 
+    @Override
+    public void loadArticles(String sourceId) {
+        loadNewsFromRepository(sourceId, view.isNetworkAvailable());
+    }
 
-    public void getArticles(String source) {
-        GetApiService service = App.instance.getRetrofitInstance().create(GetApiService.class);
-        Call<ArticleResponse> articleResponseCall = service.getArticle(API_KEY, source, "top");
-        articleResponseCall.enqueue(new Callback<ArticleResponse>() {
+    private void loadNewsFromRepository(String source, boolean isNetworkAvailable ) {
+        view.setRefreshing(true);
+        repository.getArticles(source, new IRemoteDataSource.LoadDataCallback<Article>() {
             @Override
-            public void onResponse(Call<ArticleResponse> call, Response<ArticleResponse> response) {
-                if (response.body() != null) {
-                    if ("ok".equals(response.body().getStatus())) {
-                        if (!response.body().getArticles().isEmpty()) {
-                            callback.onDataLoaded(response.body().getArticles());
-                        } else {
-                            callback.onDataNotAvailable();
-                            Log.e("Error", "Oops, something went wrong!");
-                        }
-                    } else {
-                        callback.onDataNotAvailable();
-                        Log.e("No data", "Oops, something went wrong!");
-                    }
+            public void onDataLoaded(List<Article> list) {
+                if (list.isEmpty()) {
+                    view.showNoSourcesData();
                 }
+                view.showArticles(list);
+                view.setRefreshing(false);
             }
 
             @Override
-            public void onFailure(Call<ArticleResponse> call, Throwable t) {
-                Log.e("error", "Error:" + t.getMessage());
-                callback.onDataNotAvailable();
+            public void onDataNotAvailable() {
+                if (!view.isActive()) {
+                    return;
+                }
+                view.showLoadingSourcesError();
             }
-        });
+        }, isNetworkAvailable);
 
     }
 }

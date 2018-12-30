@@ -1,7 +1,9 @@
 package com.mohsinmonad.newsviews.news;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +51,7 @@ public class NewsRecyclerViewAdapter extends  RecyclerView.Adapter<NewsRecyclerV
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.news_item, parent, false);
+                .inflate(R.layout.article_item, parent, false);
         return new ItemHolder(view);
     }
 
@@ -61,12 +63,12 @@ public class NewsRecyclerViewAdapter extends  RecyclerView.Adapter<NewsRecyclerV
             }
         });
 
-        Picasso.Builder builder = new Picasso.Builder(context);
+        /*Picasso.Builder builder = new Picasso.Builder(context);
         builder.downloader(new OkHttp3Downloader(context));
         builder.build().load("http://i.newsapi.org/" + articleList.get(position).getImageUrl())
                 .placeholder((R.drawable.ic_launcher_background))
                 .error(R.drawable.ic_launcher_background)
-                .into(holder.newsImage);
+                .into(holder.newsImage);*/
 
 
         String title = articleList.get(position).getTitle();
@@ -78,6 +80,13 @@ public class NewsRecyclerViewAdapter extends  RecyclerView.Adapter<NewsRecyclerV
             holder.date.setText(formatFrom.format(formatTo.parse(date)));
         } catch (ParseException e) {
             e.printStackTrace();
+        }
+        String imageUrl = articleList.get(position).getImageUrl();
+        if (!TextUtils.isEmpty(imageUrl)){
+            if (!imageUrl.toLowerCase().startsWith("http")){
+                imageUrl = "http:" + imageUrl;
+            }
+            holder.newsImage.setImageURI(Uri.parse(imageUrl));
         }
 
     }

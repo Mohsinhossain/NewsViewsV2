@@ -2,49 +2,49 @@ package com.mohsinmonad.newsviews.home;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
-import android.util.Log;
-import com.mohsinmonad.newsviews.common.App;
-import com.mohsinmonad.newsviews.common.GetApiService;
-import com.mohsinmonad.newsviews.source.IDataSource;
-import java.util.Objects;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
+import com.mohsinmonad.newsviews.source.RepositoryDataSource;
+import com.mohsinmonad.newsviews.source.remote.IRemoteDataSource;
+import java.util.List;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 @SuppressLint("ALL")
-public class HomeActivityViewPresenter {
+public class HomeActivityViewPresenter implements HomeActivityView.Presenter {
 
-    private HomeActivityView homeActivityContract;
+    private HomeActivityView.View view;
+    private RepositoryDataSource repository;
 
-    private IDataSource.LoadDataCallback<Source> callback;
-
-    HomeActivityViewPresenter(HomeActivityView homeActivityContract) {
-        this.homeActivityContract = homeActivityContract;
+    public HomeActivityViewPresenter(@NonNull RepositoryDataSource repository,
+                            @NonNull HomeActivityView.View view) {
+        this.repository = checkNotNull(repository, "repository cannot be null");
+        this.view = checkNotNull(view, "View cannot be null!");
     }
 
-    void getSourcesAll() {
-        GetApiService service = App.instance.getRetrofitInstance().create(GetApiService.class);
-        Call<SourceResponse> articleResponseCall = service.getSource("en");
-        articleResponseCall.enqueue(new Callback<SourceResponse>() {
+    @Override
+    public void loadSources() {
+        loadSourcesFromRepository(view.isNetworkAvailable());
+    }
+
+    private void loadSourcesFromRepository(boolean isNetworkAvailable ) {
+        view.setRefreshing(true);
+        repository.getSources(new IRemoteDataSource.LoadDataCallback<Source>() {
             @Override
-            public void onResponse(Call<SourceResponse> call, @NonNull Response<SourceResponse> response) {
-                if ("ok".equals(Objects.requireNonNull(response.body()).getStatus())) {
-                    if (!response.body().getSources().isEmpty()) {
-                        callback.onDataLoaded(response.body().getSources());
-                    } else {
-                        Log.e("No data", "Oops, something went wrong!");
-                    }
-                } else {
-                    Log.e("error", "Oops, something went wrong!");
+            public void onDataLoaded(List<Source> list) {
+                if (list.isEmpty()) {
+                    view.showNoSourcesData();
                 }
+                view.showSources(list);
+                view.setRefreshing(false);
             }
 
             @Override
-            public void onFailure(Call<SourceResponse> call, Throwable t) {
-                Log.e("error1", "Error:" + t.getMessage());
+            public void onDataNotAvailable() {
+                if (!view.isActive()) {
+                    return;
+                }
+                view.showLoadingSourcesError();
             }
-        });
+        }, isNetworkAvailable);
 
     }
+
 }

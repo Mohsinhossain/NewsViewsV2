@@ -4,5 +4,9 @@
         I am an Android Developer. </string>
     <string name="section_format"> Welcome NewsViews</string>
     <string name="appbar_scrolling_view_behavior"> Hello NewsViews</string>
-
+    <string name="about_the_app"> This is an Android News App. App name is NewsViews.
+        the references api is newsapi.org
+        </string>
+    <string name="courtesty_By"> Courtesy By: Rokomari.com</string>
+    <string name="dev_by"> Developed By: Mohsin</string>
 </resources>

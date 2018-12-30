@@ -7,18 +7,18 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jakewharton.picasso.OkHttp3Downloader;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.mohsinmonad.newsviews.R;
-import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class HomeRecyclerviewAdapter extends  RecyclerView.Adapter<HomeRecyclerviewAdapter.ItemHolder> {
-
-    Context context;
+public class HomeRecyclerviewAdapter extends RecyclerView.Adapter<HomeRecyclerviewAdapter.ItemHolder> {
 
     public interface ItemClickListener {
         void onItemClick(Source source);
@@ -52,19 +52,17 @@ public class HomeRecyclerviewAdapter extends  RecyclerView.Adapter<HomeRecyclerv
                 listener.onItemClick(sourceList.get(holder.getAdapterPosition()));
             }
         });
-
-        Picasso.Builder builder = new Picasso.Builder(context);
-        builder.downloader(new OkHttp3Downloader(context));
-        builder.build().load("http://i.newsapi.org/" + sourceList.get(position).getUrlsToLogos().getMedium())
-                .placeholder((R.drawable.ic_launcher_background))
-                .error(R.drawable.ic_launcher_background)
-                .into(holder.newsImage);
-
         String name = sourceList.get(position).getName();
         String description = sourceList.get(position).getDescription();
         holder.name.setText(name);
         holder.description.setText(description);
-
+        String imageUrl = sourceList.get(position).getUrlsToLogos().getMedium();
+        if (!TextUtils.isEmpty(imageUrl)){
+            if (!imageUrl.toLowerCase().startsWith("http")){
+                imageUrl = "http:" + imageUrl;
+            }
+            holder.newsImage.setImageURI(Uri.parse(imageUrl));
+        }
     }
 
     @Override
@@ -75,15 +73,15 @@ public class HomeRecyclerviewAdapter extends  RecyclerView.Adapter<HomeRecyclerv
     public class ItemHolder extends RecyclerView.ViewHolder {
 
         private  View view;
-        private ImageView newsImage;
-        private TextView description;
+        private SimpleDraweeView newsImage;
+        private  TextView description;
         private  TextView name;
 
         public ItemHolder(View view) {
             super(view);
             this.view = view;
             this.newsImage = view.findViewById(R.id.list_item_icon);
-            this.description =  view.findViewById(R.id.list_item_sub_name);
+            this.description = view.findViewById(R.id.list_item_sub_name);
             this.name = view.findViewById(R.id.list_item_name);
         }
     }

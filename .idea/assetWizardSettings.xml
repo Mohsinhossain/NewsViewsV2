@@ -14,9 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="opacityPercent" value="96" />
-                            <entry key="outputName" value="ic_logout" />
-                            <entry key="sourceFile" value="C:\Users\Mohsin Monad\Downloads\logout.svg" />
+                            <entry key="outputName" value="ic_news_new" />
+                            <entry key="sourceFile" value="C:\Users\Mohsin Monad\Downloads\news_new.svg" />
                           </map>
                         </option>
                       </PersistentState>

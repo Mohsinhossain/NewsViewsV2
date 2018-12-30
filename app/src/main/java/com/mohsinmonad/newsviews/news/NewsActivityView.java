@@ -2,22 +2,30 @@ package com.mohsinmonad.newsviews.news;
 
 import android.support.annotation.NonNull;
 
+import com.mohsinmonad.newsviews.BasePresenter;
+import com.mohsinmonad.newsviews.BaseView;
+
 import java.util.List;
 
 public interface NewsActivityView {
 
-        void setArticles(List<Article> sources);
-        void showArticles(@NonNull List<Article> sources);
+        interface View extends BaseView {
 
-        void setRefreshing(boolean refreshing);
+                void showArticles(@NonNull List<Article> sources);
 
-        boolean isNetworkAvailable();
+                void setRefreshing(boolean refreshing);
 
-        boolean isActive();
+                boolean isNetworkAvailable();
 
-        void showLoadingSourcesError();
+                boolean isActive();
 
-        void showNoSourcesData();
+                void showLoadingSourcesError();
 
+                void showNoSourcesData();
+        }
 
+        interface Presenter extends BasePresenter {
+
+                void loadArticles(String sourceId);
+        }
 }

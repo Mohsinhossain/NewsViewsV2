@@ -1,45 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_to_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".news.NewsActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.mohsinmonad.newsviews.home.HomeActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/area_block1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <EditText
-                android:id="@+id/area_title"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:background="@drawable/border"
-                android:drawableLeft="@android:drawable/ic_search_category_default"
-                android:drawablePadding="8dp"
-                android:singleLine="true"
-                android:padding="8dp"
-                android:paddingLeft="8dp"
-                android:textColor="@color/white" />
-
-        </LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <include
-            layout="@layout/content_main"
+            layout="@layout/action_bar_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/area_block1"
-            android:layout_marginTop="4dp" />
-    </RelativeLayout>
+            android:layout_height="wrap_content" />
 
-</android.support.design.widget.CoordinatorLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

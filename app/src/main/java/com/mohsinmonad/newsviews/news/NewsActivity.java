@@ -14,13 +14,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.mohsinmonad.newsviews.R;
+import com.mohsinmonad.newsviews.prod.Injection;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsActivity extends AppCompatActivity implements NewsActivityView {
+public class NewsActivity extends AppCompatActivity implements NewsActivityView.View {
 
     public static final String EXTRA_SOURCE_ID = "com.mohsinmonad.newsviews.EXTRA_SOURCE_ID";
     private NewsActivityViewPresenter presenter;
@@ -36,7 +36,7 @@ public class NewsActivity extends AppCompatActivity implements NewsActivityView 
             sourceId = getIntent().getStringExtra(EXTRA_SOURCE_ID);
         }
         setContentView(R.layout.activity_news);
-        initEditText();
+        //initEditText();
         initRecycler();
         initSwipeToRefresh();
         initPresenter();
@@ -45,18 +45,13 @@ public class NewsActivity extends AppCompatActivity implements NewsActivityView 
     @Override
     protected void onResume() {
         super.onResume();
-        //presenter.loadArticles(sourceId);
+        presenter.loadArticles(sourceId);
     }
 
     // Create the presenter
     private void initPresenter() {
-        presenter = new NewsActivityViewPresenter(this);
-        presenter.getArticles(sourceId);
-    }
-
-    @Override
-    public void setArticles(List<Article> sources) {
-        initRecycler();
+        presenter = new NewsActivityViewPresenter(
+                Injection.provideRepository(getApplicationContext()),this);
     }
 
     @Override
@@ -99,11 +94,11 @@ public class NewsActivity extends AppCompatActivity implements NewsActivityView 
         Toast.makeText(this, "No data", Toast.LENGTH_SHORT).show();
     }
 
-    private void initEditText() {
+    /*private void initEditText() {
         EditText editText = findViewById(R.id.area_title);
 
     }
-
+*/
     private void initRecycler() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -125,7 +120,7 @@ public class NewsActivity extends AppCompatActivity implements NewsActivityView 
 
     private void initSwipeToRefresh() {
         swipeRefreshLayout = findViewById(R.id.swipe_to_refresh);
-        swipeRefreshLayout.setOnRefreshListener(() -> presenter.getArticles(sourceId));
+        swipeRefreshLayout.setOnRefreshListener(() -> presenter.loadArticles(sourceId));
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,

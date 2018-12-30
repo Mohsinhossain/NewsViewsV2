@@ -6,7 +6,7 @@ import com.mohsinmonad.newsviews.util.UrlsToLogos;
 import java.util.List;
 
 
-public class Source {
+public class Source  {
 
     @SerializedName("id")
     private String id;

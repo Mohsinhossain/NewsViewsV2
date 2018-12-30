@@ -4,13 +4,14 @@
     package="com.mohsinmonad.newsviews">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".common.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_news_new"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_news_new"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
@@ -35,11 +36,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".about.AboutActivity" />
-        <activity android:name=".news.NewsActivity"
+        <activity
+            android:name=".news.NewsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"></activity>
+        <activity android:name=".webviews.WebViewActivity"></activity>
 
-        </activity>
+        <provider
+            android:name="com.mohsinmonad.newsviews.source.local.NewsProvider"
+            android:authorities="${packageName}"
+            android:exported="false" />
     </application>
 
 </manifest>

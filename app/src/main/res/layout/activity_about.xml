@@ -1,21 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/about_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     tools:context=".about.AboutActivity">
 
 <TextView
+    android:id="@+id/about"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_centerInParent="true"
-    android:textSize="14sp"
-    android:gravity="center"
+    android:layout_centerInParent="false"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginLeft="10dp"
+    android:textSize="16sp"
+    android:gravity="top"
     android:textColor="@color/colorBlack"
-    android:text="About"
+    android:text="@string/about_the_app"
     />
 
+    <TextView
+        android:id="@+id/version_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="false"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:gravity="top"
+        android:textColor="@color/colorBlack"
+        android:text="Version Name:1.0"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/colorBlack"
+        android:text="@string/courtesty_By"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="130dp"
+        android:textColor="@color/colorBlack"
+        android:text="@string/dev_by"
+        />
 </RelativeLayout>
 
 
